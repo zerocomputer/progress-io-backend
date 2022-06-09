@@ -122,6 +122,27 @@ module.exports = {
                                     from: References.projectTaskAttachment.name,
                                     as: "attchments"
                                 }
+                            },
+                            {
+                                $lookup: {
+                                    localField: "_id",
+                                    foreignField: "projectTaskId",
+                                    from: References.comments.name,
+                                    as: "comments",
+                                    pipeline: [
+                                        {
+                                            $lookup: {
+                                                localField: "authorAccountId",
+                                                foreignField: "_id",
+                                                from: References.account.name,
+                                                as: "account"
+                                            }
+                                        },
+                                        {
+                                            $unwind: "$account"
+                                        }
+                                    ]
+                                }
                             }
                         ]
                     }  
