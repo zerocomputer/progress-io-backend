@@ -136,7 +136,7 @@ module.exports = {
 
         let passedTasks = 0;
         for (let task of foundProject[0].tasks) {
-            if (task.status.isPassed) {
+            if (task.status.isPassed || task.status.isSuccess) {
                 passedTasks++;
             }
         }
